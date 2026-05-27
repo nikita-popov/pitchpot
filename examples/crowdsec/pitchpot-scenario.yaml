@@ -1,0 +1,15 @@
+# CrowdSec scenario for pitchpot ban-log.
+# Place in /etc/crowdsec/scenarios/pitchpot.yaml
+
+type: leaky
+name: pitchpot/http-honeypot-probe
+description: "Pitchpot honeypot hit - automated scanner or crawler detected"
+filter: "evt.Meta.log_type == 'pitchpot'"
+groupby: "evt.Meta.source_ip"
+capacity: 1
+leakspeed: "10s"
+blacklist_label: pitchpot-probe
+labels:
+  service: http
+  type: scan
+  remediation: true

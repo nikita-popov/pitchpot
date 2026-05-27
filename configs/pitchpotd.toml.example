@@ -1,0 +1,19 @@
+# pitchpotd example configuration
+# Copy to /etc/pitchpot/pitchpotd.toml and adjust.
+
+listen      = "127.0.0.1:9999"
+sensor      = "web01.example.com"
+
+[corpus]
+pack_dir = "/etc/pitchpot/packs/wordpress"
+
+[log]
+jsonl_path  = "/var/log/pitchpot/events.jsonl"
+banlog_path = "/var/log/pitchpot/ban.log"
+
+[http]
+tarpit_profile       = "annoy"   # annoy | trap | endless
+chunk_size           = 64        # bytes per drip tick
+tick_ms              = 2000      # ms between ticks
+max_duration_sec     = 300       # 0 = unlimited
+max_body_excerpt_bytes = 512

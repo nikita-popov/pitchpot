@@ -1,0 +1,43 @@
+# Example of a generated pitchpot nginx include.
+# This file is produced by: pitchpot-configurator generate --nginx-conf ... --output ...
+# Include it inside a server {} block:
+#
+#   server {
+#       ...
+#       include /etc/pitchpot/honeypot.conf;
+#   }
+#
+# After editing nginx config, validate and reload:
+#   nginx -t && systemctl reload nginx
+
+# dotenv config file probe
+location = /.env {
+    proxy_pass http://127.0.0.1:9999;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Pitchpot-Label probe:env;
+    proxy_read_timeout 600s;
+}
+
+# git repository probe
+location ^~ /.git/ {
+    proxy_pass http://127.0.0.1:9999;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Pitchpot-Label probe:git;
+    proxy_read_timeout 600s;
+}
+
+# WordPress login probe
+location = /wp-login.php {
+    proxy_pass http://127.0.0.1:9999;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Pitchpot-Label probe:wp;
+    proxy_read_timeout 600s;
+}
+
+# phpMyAdmin probe
+location ^~ /phpmyadmin/ {
+    proxy_pass http://127.0.0.1:9999;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Pitchpot-Label probe:phpmyadmin;
+    proxy_read_timeout 600s;
+}

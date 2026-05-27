@@ -1,0 +1,46 @@
+{
+  "version": "1",
+  "profile": "wordpress",
+  "entries": [
+    {
+      "pattern": "/.env",
+      "kind": "artifact",
+      "file": "artifacts/env.txt",
+      "content_type": "text/plain",
+      "labels": ["probe:env"],
+      "risk": "high"
+    },
+    {
+      "pattern": "/.git/",
+      "kind": "artifact",
+      "file": "artifacts/git-head.txt",
+      "content_type": "text/plain",
+      "labels": ["probe:git"],
+      "risk": "high"
+    },
+    {
+      "pattern": "/wp-login.php",
+      "kind": "template",
+      "file": "templates/wp-login.html",
+      "content_type": "text/html",
+      "labels": ["probe:wp"],
+      "risk": "high"
+    },
+    {
+      "pattern": "/wp-admin/",
+      "kind": "artifact",
+      "file": "artifacts/wp-admin.html",
+      "content_type": "text/html",
+      "labels": ["probe:wp"],
+      "risk": "high"
+    },
+    {
+      "pattern": "/phpinfo.php",
+      "kind": "artifact",
+      "file": "artifacts/phpinfo.html",
+      "content_type": "text/html",
+      "labels": ["probe:php"],
+      "risk": "high"
+    }
+  ]
+}
