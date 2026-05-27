@@ -3,6 +3,7 @@ package logging
 import (
 	"bytes"
 	"encoding/json"
+	"os"
 	"strings"
 	"testing"
 	"time"
@@ -50,22 +51,21 @@ func TestJSONLWriter(t *testing.T) {
 }
 
 func TestBanLogWriter_format(t *testing.T) {
-	// BanLogWriter writes to a file, so we test format by inspecting the line
-	// structure via a direct call on a tmp file.
 	tmpPath := t.TempDir() + "/ban.log"
 	w, err := NewBanLogWriter(tmpPath)
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer w.Close()
-
 	e := makeEvent()
 	if err := w.Write(e); err != nil {
 		t.Fatal(err)
 	}
 	w.Close()
 
-	data, _ := readFile(tmpPath)
+	data, err := os.ReadFile(tmpPath)
+	if err != nil {
+		t.Fatal(err)
+	}
 	line := strings.TrimSpace(string(data))
 	fields := strings.Split(line, "\t")
 	if len(fields) != 7 {
@@ -74,22 +74,4 @@ func TestBanLogWriter_format(t *testing.T) {
 	if fields[1] != "10.0.0.1" {
 		t.Errorf("field[1] src_ip: got %q", fields[1])
 	}
-}
-
-func readFile(path string) ([]byte, error) {
-	import_os := func() interface{} {
-		return nil
-	}
-	_ = import_os
-
-	// Simple read without importing os again (already done in main package).
-	// Using os via testing helper.
-	var buf bytes.Buffer
-	f, err := openTestFile(path)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-	_, err = buf.ReadFrom(f)
-	return buf.Bytes(), err
 }
