@@ -1,5 +1,7 @@
 # Pitchpot
 
+> ⚠️ **Work in progress.** The project is under active development. APIs, config formats, and corpus schema may change without notice.
+
 A deception honeypot framework for nginx environments.
 Slowly poisons automated scanners, crawlers, and LLM-based agents
 with plausible-looking but completely useless content.
