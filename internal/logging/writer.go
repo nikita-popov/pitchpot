@@ -23,8 +23,8 @@ type Writer interface {
 
 // JSONLWriter writes full event structs as JSONL.
 type JSONLWriter struct {
-	mu sync.Mutex
-	f  *os.File
+	mu  sync.Mutex
+	f   *os.File
 	enc *json.Encoder
 }
 

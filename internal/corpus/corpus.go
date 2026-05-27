@@ -56,7 +56,7 @@ type Manifest struct {
 type Pack struct {
 	Manifest  Manifest
 	artifacts map[string][]byte             // file -> content
-	templates map[string]*template.Template  // file -> parsed template
+	templates map[string]*template.Template // file -> parsed template
 }
 
 // Load reads a corpus pack from dir.
@@ -153,15 +153,15 @@ func (w *appendWriter) Write(p []byte) (int, error) {
 
 // MutatorData is passed to templates at render time.
 type MutatorData struct {
-	Hostname  string
-	IP        string
-	Token     string
-	Hash      string
-	Date      string
-	Version   string
-	Branch    string
-	Username  string
-	Port      int
+	Hostname string
+	IP       string
+	Token    string
+	Hash     string
+	Date     string
+	Version  string
+	Branch   string
+	Username string
+	Port     int
 }
 
 func newMutatorData() MutatorData {
@@ -180,7 +180,7 @@ func newMutatorData() MutatorData {
 
 // templateFuncs are available inside all corpus templates.
 var templateFuncs = template.FuncMap{
-	"randHex":   func(n int) string { return randHex(n) },
-	"randIP":    func() string { return randPrivateIP() },
-	"pick":      func(vals ...string) string { return vals[rand.Intn(len(vals))] },
+	"randHex": func(n int) string { return randHex(n) },
+	"randIP":  func() string { return randPrivateIP() },
+	"pick":    func(vals ...string) string { return vals[rand.Intn(len(vals))] },
 }

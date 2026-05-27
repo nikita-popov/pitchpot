@@ -74,11 +74,11 @@ func main() {
 	handler := protohttp.New(cfg, pack, writer)
 
 	srv := &http.Server{
-		Addr:         *listen,
-		Handler:      handler,
-		ReadTimeout:  10 * time.Second,
+		Addr:        *listen,
+		Handler:     handler,
+		ReadTimeout: 10 * time.Second,
 		// WriteTimeout intentionally omitted — drip responses are long.
-		IdleTimeout:  120 * time.Second,
+		IdleTimeout:    120 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
 

@@ -69,11 +69,11 @@ type HTTPRequest struct {
 
 // Response describes what the tarpit sent back.
 type Response struct {
-	Profile       string `json:"profile"`
-	StatusCode    int    `json:"status_code,omitempty"`
-	BytesSent     int64  `json:"bytes_sent"`
-	DurationMS    int64  `json:"duration_ms"`
-	Terminated    bool   `json:"terminated"` // true if client disconnected early
+	Profile    string `json:"profile"`
+	StatusCode int    `json:"status_code,omitempty"`
+	BytesSent  int64  `json:"bytes_sent"`
+	DurationMS int64  `json:"duration_ms"`
+	Terminated bool   `json:"terminated"` // true if client disconnected early
 }
 
 // Fingerprint captures automatically-extracted indicators from the request.
